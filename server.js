@@ -12,7 +12,8 @@ const dbschema ={
     fullName : String,
     course: String,
     emailid: String,
-    TAname: String
+    TAname: String,
+    date: String
 }
 
 const TutoringVisits = mongoose.model("TutoringVisits", dbschema);
@@ -23,19 +24,28 @@ app.get("/", function(req,res) {
 
 })
 
+
 app.use(express.static(path.join(__dirname, 'public')))
 
-app.post("/", function (req,res){
+app.post("/thankyou.html", function (req,res){
     let newNote= new TutoringVisits({
     fullName: req.body.fullName,
     course: req.body.course,
     emailid: req.body.emailid,
-    TAname: req.body.TAname
+    TAname: req.body.TAname,
+    date: req.body.date,
 
 });
 newNote.save();
-res.redirect("/");
+res.redirect("/thankyou.html");
 })
+
+
+
+app.get("/thankyou.html", function(req,res) {
+    res.sendFile(__dirname+ "/thankyou.html");
+})
+
 
 app.listen(3000, function() {
     console.log("server is running on 3000");

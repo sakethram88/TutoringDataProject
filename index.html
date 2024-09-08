@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Tutoring Login</title>
+    <link rel="icon" type="image/jpg" href="/images/icon.jpg"/>
+    
 </head>
 
 
@@ -30,27 +32,27 @@
     <!--body starts here-->
 <div style="background-image: url('/images/csam.jpg'); background-size: cover; background-position: center; height: 100vh;">
 
-<div class="jumbotron" style="background-color: rgba(128, 128, 128, 0.7); color: white; padding: 2rem; background-size: cover; height: 100vh;">
+<div class="jumbotron" style="background-color: rgba(68, 68, 68, 0.7); color: white; padding: 2rem; background-size: cover; height: 100vh;">
   <h1 class="display-4" style="text-align: center">Welcome to CSAM!</h1>
   <p class="lead" style="text-align: center">Please enter your details before proceeding</p>
   <hr class="my-4">
 
 
-  <form class="container" method="post" action="/">
+  <form class="container" method="post" action="/thankyou.html" id="form">
     <div class="form-group">
         <label for="fname">First name</label><br>
-        <input class="form-control" name="fullName">
+        <input class="form-control" name="fullName" required>
         
     </div>
     <div class="form-group">
         <label for="fname">Course</label><br>
-        <input class="form-control" name="course">
+        <input class="form-control" name="course" required>
         
     </div>
     
     <div class="form-group">
         <label for="fname">Email ID</label><br>
-        <input class="form-control" name="emailid">
+        <input class="form-control" name="emailid" id="emailid" required>
         
     </div>
     <div class="form-group">
@@ -59,10 +61,15 @@
         
     </div>
     <br>
+    <input type="hidden" id="date" name="date">
+
+    <script type="text/javascript">
+        document.getElementById('date').value = Date();
+      </script>
     <button
       class="btn"
       style="
-          background: linear-gradient(45deg, #040404, #ff0000); /* Gradient colors */
+          background: linear-gradient(45deg, #343030, #ff0000); /* Gradient colors */
           border: none; /* Remove default border */
           color: white; /* Text color */
           padding: 10px 20px; /* Padding */
@@ -73,7 +80,25 @@
     ">
       SUBMIT
   </button>
+  <p id="error-message" style="color: red; display: none;">Please enter a valid email address.</p>
   </form>
+
+  <script>
+    document.getElementById('form').addEventListener('submit', function (event) {
+      const emailInput = document.getElementById('emailid');
+      const errorMessage = document.getElementById('error-message');
+
+      // Regular expression for basic email validation
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (!emailPattern.test(emailInput.value)) {
+        errorMessage.style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+      } else {
+        errorMessage.style.display = 'none';
+      }
+    });
+  </script>
   
   
 </div>
